@@ -60,11 +60,11 @@ and open the template in the editor.
                                 
                                 <img class="img-profile rounded-circle" style="height:50px;"
                                 th:if="${photoUrl == null}"
-								src="/app/user/viewfile/images.png"/>
+								src="/user/viewfile/images.png"/>
 								
 								<img class="img-profile rounded-circle" style="height:50px;width:50px;"
                                 th:unless="${photoUrl == null}"
-								src="/app/user/viewfile/images.png"
+								src="/user/viewfile/images.png"
 								th:with="var=*{photoUrl}"
 								data-th-src="@{'/user/viewfile/'+*{photoUrl}}"
 								/>
@@ -112,11 +112,11 @@ and open the template in the editor.
                         <div class="user-pic">
                            <img id="profilepic" class="img-responsive img-rounded"
                                 th:if="${photoUrl == null}"
-								src="/app/user/viewfile/images.png" alt="User Photo"/>
+								src="/user/viewfile/images.png" alt="User Photo"/>
 								
 								<img id="profilepic" class="img-responsive img-rounded"
                                 th:unless="${photoUrl == null}"
-								src="/app/user/viewfile/images.png"
+								src="/user/viewfile/images.png"
 								th:with="var=*{photoUrl}"
 								data-th-src="@{'/user/viewfile/'+*{photoUrl}}" alt="User Photo"
 								/>
@@ -266,7 +266,7 @@ and open the template in the editor.
 
                             <!--=================================-->
 
-                            <div class="viewassignments">ncj
+                            <div class="viewassignments">
 								<img src="/libs/no_assignments.jpg" />
                             </div>
 

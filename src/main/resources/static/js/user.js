@@ -83,11 +83,11 @@ $(document).ready(function () {
     function assignmmentlist() {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8000/app/assignment/all",
+            url: "/assignment/all",
             data: {},
             success: function (data) {
             if(data.length == 0){
-            	$(".viewassignments").html("<img src=\"/app/libs/no_assignments.jpg\" style=\"width:90%; height:90%;\" />");
+            	$(".viewassignments").html("<img src=\"/libs/no_assignments.jpg\" style=\"width:90%; height:90%;\" />");
             }
             else{
                 $(".viewassignments").html("");
@@ -96,7 +96,7 @@ $(document).ready(function () {
                     $.ajax({
                         type: 'GET',
                         async: false,
-                        url: 'http://localhost:8000/app/submission/defaulter',
+                        url: '/submission/defaulter',
                         data: {
                             assignment: data[i]["id"]
                         },
@@ -119,7 +119,7 @@ $(document).ready(function () {
                     if (data[i]["attachment"] == null)
                         temp = temp.replace("##download##", "No Attachments Present");
                     else
-                        temp = temp.replace("##download##", "<a target=\"_blank\" href=\"" + "/app/assignment/viewfile/" + data[i]["attachment"] + "\" > <b>Download</b></a>");
+                        temp = temp.replace("##download##", "<a target=\"_blank\" href=\"" + "/assignment/viewfile/" + data[i]["attachment"] + "\" > <b>Download</b></a>");
                     temp = temp.replace("##AssignmentName##", data[i]["assignmentName"]);
                     var st = new Date(data[i]["postedOn"]);
                     temp = temp.replace("##PostedOn##", "Posted On : " + st.formatYYYYMMDD());
@@ -142,7 +142,7 @@ $(document).ready(function () {
                     $.ajax({
                         type: "POST",
                         enctype: 'multipart/form-data',
-                        url: "http://localhost:8000/app/submission",
+                        url: "/submission",
                         data: formData,
                         processData: false,
                         contentType: false,
@@ -190,7 +190,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8000/app/course/all",
+            url: "/course/all",
             data: {},
             success: function (data) {
                 $.each(data, function (index, item) {
@@ -204,7 +204,7 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8000/app/group/all",
+            url: "/group/all",
             data: {},
             success: function (data) {
                 $.each(data, function (index, item) {
@@ -233,7 +233,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             enctype: 'multipart/form-data',
-            url: "http://localhost:8000/app/assignment/",
+            url: "/assignment/",
             data: formData,
             processData: false,
             contentType: false,
@@ -252,7 +252,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8000/app/course/all",
+            url: "/course/all",
             data: {},
             success: function (data) {
                 $('#table2').DataTable().clear().draw();
@@ -288,7 +288,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: "http://localhost:8000/app/course/",
+            url: "/course/",
             data: {
                 coursename: $("#coursename").val(),
             },
@@ -305,7 +305,7 @@ $(document).ready(function () {
     function refreshgroup() {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8000/app/group/all",
+            url: "/group/all",
             data: {},
             success: function (data) {
                 $('#table3').DataTable().clear().draw();
@@ -341,7 +341,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: "http://localhost:8000/app/group/",
+            url: "/group/",
             data: {
                 groupname: $("#groupname").val(),
                 groupdesc: $("#groupdesc").val(),
@@ -359,7 +359,7 @@ $(document).ready(function () {
     function refreshuser() {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8000/app/user/all",
+            url: "/user/all",
             data: {},
             success: function (data) {
                 $('#table4').DataTable().clear().draw();
@@ -369,9 +369,9 @@ $(document).ready(function () {
                     list = [];
                     list.push(data.length - i);
                     if(data[i]["photo"]!=null)
-                    	list.push("<img style=\"height:100px; width:100px;\" src=\"http://localhost:8000/app/user/viewfile/" + data[i]["photo"] + "\">");
+                    	list.push("<img style=\"height:100px; width:100px;\" src=\"/user/viewfile/" + data[i]["photo"] + "\">");
                     else
-                    	list.push("<img style=\"height:100px; width:100px;\" src=\"http://localhost:8000/app/user/viewfile/images.png\">");
+                    	list.push("<img style=\"height:100px; width:100px;\" src=\"/user/viewfile/images.png\">");
                     list.push(data[i]["userName"]);
                     list.push(data[i]["name"]);
                     list.push(data[i]["roleId"]["roleName"]);
@@ -401,7 +401,7 @@ $(document).ready(function () {
         $(".viewuser").show();
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8000/app/group/all",
+            url: "/group/all",
             data: {},
             success: function (data) {
                 $.each(data, function (index, item) {
@@ -418,11 +418,11 @@ $(document).ready(function () {
 
     $.ajax({
         type: 'GET',
-        url: "http://localhost:8000/app/user/currentuser",
+        url: "/user/currentuser",
         data: {},
         success: function (data) {
             if (data["photo"] != null)
-                $("#profilepic").attr("src", "/app/user/viewfile/" + data["photo"]);
+                $("#profilepic").attr("src", "/user/viewfile/" + data["photo"]);
         },
         error: function (err) {
             console.log(err);
@@ -441,7 +441,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:8000/app/submission/userall",
+            url: "/submission/userall",
             data: {},
             success: function (data) {
 //                console.log(data);
@@ -456,7 +456,7 @@ $(document).ready(function () {
                     st = new Date(data[i]["submittedOn"]);
                     list.push(st.formatYYYYMMDD());
                     if (data[i]["attachment"] != null)
-                        list.push("<a target=\"_blank\" href=\"" + "/app/submission/viewfile/" + data[i]["attachment"] + "\" > <b>Download</b></a>");
+                        list.push("<a target=\"_blank\" href=\"" + "/submission/viewfile/" + data[i]["attachment"] + "\" > <b>Download</b></a>");
                     else
                         list.push("No Attachment present");
                     $("#table").dataTable().fnAddData(list);
