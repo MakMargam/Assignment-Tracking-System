@@ -58,16 +58,12 @@ and open the template in the editor.
                                 style="padding: 0px;">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" data-th-text="${name}">User Name</span>
                                 
-                                <img class="img-profile rounded-circle" style="height:50px;"
-                                th:if="${photoUrl == null}"
-								src="/user/viewfile/images.png"/>
-								
-								<img class="img-profile rounded-circle" style="height:50px;width:50px;"
-                                th:unless="${photoUrl == null}"
-								src="/user/viewfile/images.png"
-								th:with="var=*{photoUrl}"
-								data-th-src="@{'/user/viewfile/'+*{photoUrl}}"
-								/>
+                                 <img class="img-profile rounded-circle" style="height:45px; width:45px;" th:if="${photoUrl == null}"
+                                src="/user/viewfile/images.png" />
+
+                            <img class="img-profile rounded-circle" style="height:45px; width:45px;"
+                                th:unless="${photoUrl == null}" src="/user/viewfile/images.png"
+                                th:with="var=*{photoUrl}" data-th-src="@{'/user/viewfile/'+*{photoUrl}}" />
 								
                             </a>
                             <!-- Dropdown - User Information -->
