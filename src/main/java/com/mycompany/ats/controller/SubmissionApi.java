@@ -56,7 +56,9 @@ public class SubmissionApi {
     @Autowired
     private UserService userService;
     
-    public static String uploadDirectory = System.getProperty("user.dir") + "\\data\\submissions";
+    public static String uploadDirectory = System.getProperty("user.dir") + 
+    		System.getProperty("file.separator")+ "data"+
+    		System.getProperty("file.separator")+ "submissions";
     
     /**
      * Add Submission method

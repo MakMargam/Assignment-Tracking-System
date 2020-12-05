@@ -43,7 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class AssignmentApi {
 
     
-    public static String uploadDirectory = System.getProperty("user.dir") + "\\uploads";
+    public static String uploadDirectory = System.getProperty("user.dir") + System.getProperty("file.separator")+ "uploads";
 
     @Autowired
     private AssignmentService assignmentService;

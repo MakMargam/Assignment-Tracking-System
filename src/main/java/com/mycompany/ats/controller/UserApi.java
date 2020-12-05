@@ -48,7 +48,9 @@ public class UserApi {
     @Autowired
     private RoleService roleService;
 
-    public static String uploadDirectory = System.getProperty("user.dir") + "\\data\\photos";
+    public static String uploadDirectory = System.getProperty("user.dir") + 
+    		System.getProperty("file.separator")+ "data"+
+    		System.getProperty("file.separator")+ "photos";
 
     /**
      *
