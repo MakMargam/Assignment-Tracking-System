@@ -7,6 +7,8 @@ jQuery(function ($) {
     $(".viewcourse").hide();
     $(".viewgroup").hide();
     $(".viewuser").hide();
+    $(".viewsubmissions").hide();
+    $(".viewaboutus").hide();
 
 
     $(".sidebar-dropdown > a").click(function () {
@@ -64,6 +66,11 @@ jQuery(function ($) {
                 "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
                 "iDisplayLength": 10
             });
+    $('#table5').DataTable(
+            {
+                "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                "iDisplayLength": 5
+            });
 });
 
 $(document).ready(function () {
@@ -119,7 +126,9 @@ $(document).ready(function () {
         $(".viewcourse").hide();
         $(".viewgroup").hide();
         $(".viewuser").hide();
-
+		$(".viewaboutus").hide();
+		$(".viewsubmissions").hide();
+		
         $("#selectgroups").html("");
         $("#selectcourse").html("");
         $("#selectgroups5").html("");
@@ -167,7 +176,9 @@ $(document).ready(function () {
         $(".viewcourse").hide();
         $(".viewuser").hide();
         $(".viewgroup").hide();
+        $(".viewsubmissions").hide();
         $(".editassignments").show();
+        $(".viewaboutus").hide();
 
         function editassignmmentlist() {
             $.ajax({
@@ -325,6 +336,8 @@ $(document).ready(function () {
         $(".viewuser").hide();
         $(".viewgroup").hide();
         $(".viewcourse").show();
+        $(".viewaboutus").hide();
+        $(".viewsubmissions").hide();
         refreshcourse();
 
     });
@@ -378,6 +391,8 @@ $(document).ready(function () {
         $(".viewgroup").show();
         $(".viewuser").hide();
         $(".viewcourse").hide();
+        $(".viewaboutus").hide();
+        $(".viewsubmissions").hide();
         refreshgroup();
     });
 
@@ -412,7 +427,10 @@ $(document).ready(function () {
                 for (var i = data.length - 1; i >= 0; i--) {
                     list = [];
                     list.push(data.length - i);
-                    list.push("<img style=\"height:100px; width:100px;\" src=\"http://localhost:8000/app/user/viewfile/" + data[i]["photo"] + "\">")
+                    if(data[i]["photo"]!=null)
+                    	list.push("<img style=\"height:100px; width:100px;\" src=\"http://localhost:8000/app/user/viewfile/" + data[i]["photo"] + "\">");
+                    else
+                    	list.push("<img style=\"height:100px; width:100px;\" src=\"http://localhost:8000/app/user/viewfile/images.png\">");
                     list.push(data[i]["userName"]);
                     list.push(data[i]["name"]);
                     list.push(data[i]["roleId"]["roleName"]);
@@ -439,7 +457,9 @@ $(document).ready(function () {
         $(".editassignments").hide();
         $(".viewcourse").hide();
         $(".viewgroup").hide();
+        $(".viewsubmissions").hide();
         $(".viewuser").show();
+        $(".viewaboutus").hide();
         $.ajax({
             type: 'GET',
             url: "http://localhost:8000/app/group/all",
@@ -475,7 +495,6 @@ $(document).ready(function () {
             cache: false,
             timeout: 600000,
             success: function (data) {
-//                console.log(data);
                 refreshuser();
             },
             error: function (err) {
@@ -483,9 +502,69 @@ $(document).ready(function () {
             }
         });
     });
-//    $('#button22').click(function (e) {
-//        e.preventDefault();
-//    });
+    
+    $("#viewsubmissions").click(function () {
+       $(".home").hide();
+        $(".viewassignments").hide();
+        $(".editassignments").hide();
+        $(".viewcourse").hide();
+        $(".viewgroup").hide();
+        $(".viewuser").hide();
+        $(".viewsubmissions").show();
+        $(".viewaboutus").hide();
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8000/app/submission/all",
+            data: {},
+            success: function (data) {
+                $('#table5').DataTable().clear().draw();
+                var list = [];
+                for (var i = data.length - 1; i >= 0; i--) {
+                    list = [];
+                    list.push(data.length - i);
+                    list.push(data[i]["assignmentId"]["assignmentName"]);
+                    st = new Date(data[i]["assignmentId"]["deadline"]);
+                    list.push(st.formatYYYYMMDD());
+                    st = new Date(data[i]["submittedOn"]);
+                    list.push(st.formatYYYYMMDD());
+                    list.push(data[i]["submittedBy"]["name"]);
+                    if (data[i]["attachment"] != null)
+                        list.push("<a target=\"_blank\" href=\"" + "/app/submission/viewfile/" + data[i]["attachment"] + "\" > <b>Download</b></a>");
+                    else
+                        list.push("No Attachment present");
+                    $("#table5").dataTable().fnAddData(list);
+                }
+            },
+            error: function (err) {
+
+            }
+        })
+    })
+    
+    
+    $("#viewaboutus").click(function () {
+        $(".home").hide();
+        $(".viewassignments").hide();
+        $(".editassignments").hide();
+        $(".viewcourse").hide();
+        $(".viewgroup").hide();
+        $(".viewuser").hide();
+        $(".viewaboutus").show();
+        $(".viewsubmissions").hide();
+    });
+    
+    $("#home").click(function () {
+        $(".home").show();
+        $(".viewassignments").hide();
+        $(".editassignments").hide();
+        $(".viewcourse").hide();
+        $(".viewgroup").hide();
+        $(".viewuser").hide();
+        $(".viewsubmissions").hide();
+        $(".viewaboutus").hide();
+    });
+
 
 
     $.ajax({

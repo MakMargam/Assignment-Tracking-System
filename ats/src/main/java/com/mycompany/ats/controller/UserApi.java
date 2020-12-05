@@ -64,16 +64,26 @@ public class UserApi {
             produces = "application/json")
     public UserDetails adduser(
             @RequestParam(name = "user-name", required = true) String userName,
-            @RequestParam(name = "password", required = false, defaultValue = "tcs#1234") String password,
+            @RequestParam(name = "password", required = false) String password,
             @RequestParam(name = "name", required = false) String name) {
+    	if(password ==null || password == "")
+    		password= "Pass@123";
         User user = new User(userName, password);
         if (name == null) {
             user.setName("");
         } else {
             user.setName(name);
         }
+        if(userService.fetchAll().size() > 0)
+        {
+        	user.setRoleId(roleService.fetch(3));
+        }
+        else
+        {
+        	user.setRoleId(roleService.fetch(1));
+        }
         user.setGroupId(groupService.fetch(1));
-        user.setRoleId(roleService.fetch(1));
+        user.setActive(true);
         return new UserDetails(userService.newUser(user));
     }
 

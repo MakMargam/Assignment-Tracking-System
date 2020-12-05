@@ -86,10 +86,13 @@ $(document).ready(function () {
             url: "http://localhost:8000/app/assignment/all",
             data: {},
             success: function (data) {
+            if(data.length == 0){
+            	$(".viewassignments").html("<img src=\"/app/libs/no_assignments.jpg\" style=\"width:90%; height:90%;\" />");
+            }
+            else{
                 $(".viewassignments").html("");
                 for (var i = data.length - 1; i >= 0; i--) {
                     var d;
-//==================================================================================
                     $.ajax({
                         type: 'GET',
                         async: false,
@@ -99,7 +102,7 @@ $(document).ready(function () {
                         },
                         success: function (data1) {
                             d=data1;
-//                            console.log(d.length==0);
+
                             
                         },
                         error: function (err) {
@@ -127,6 +130,7 @@ $(document).ready(function () {
                     temp = temp.replace("##button##", data[i]["id"]);
                     temp = temp.replace("##PostedFor##", "<b>Posted for : </b>" + data[i]["postedFor"]["groupName"] + ",");
                     $(".viewassignments").append(temp);
+                }
                 }
                 // Submit Assignment
                 $(".subbtn").click(function () {
@@ -177,6 +181,7 @@ $(document).ready(function () {
         $(".viewcourse").hide();
         $(".viewgroup").hide();
         $(".viewuser").hide();
+        $(".viewaboutus").hide();
 
         $("#selectgroups").html("");
         $("#selectcourse").html("");
@@ -273,6 +278,7 @@ $(document).ready(function () {
         $(".home1").hide();
         $(".viewuser").hide();
         $(".viewgroup").hide();
+        $(".viewaboutus").hide();
         $(".viewcourse").show();
         refreshcourse();
 
@@ -327,6 +333,7 @@ $(document).ready(function () {
         $(".viewgroup").show();
         $(".viewuser").hide();
         $(".viewcourse").hide();
+        $(".viewaboutus").hide();
         refreshgroup();
     });
 
@@ -361,7 +368,10 @@ $(document).ready(function () {
                 for (var i = data.length - 1; i >= 0; i--) {
                     list = [];
                     list.push(data.length - i);
-                    list.push("<img style=\"height:100px; width:100px;\" src=\"/app/user/viewfile/" + data[i]["photo"] + "\">")
+                    if(data[i]["photo"]!=null)
+                    	list.push("<img style=\"height:100px; width:100px;\" src=\"http://localhost:8000/app/user/viewfile/" + data[i]["photo"] + "\">");
+                    else
+                    	list.push("<img style=\"height:100px; width:100px;\" src=\"http://localhost:8000/app/user/viewfile/images.png\">");
                     list.push(data[i]["userName"]);
                     list.push(data[i]["name"]);
                     list.push(data[i]["roleId"]["roleName"]);
@@ -387,6 +397,7 @@ $(document).ready(function () {
         $(".home1").hide();
         $(".viewcourse").hide();
         $(".viewgroup").hide();
+        $(".viewaboutus").hide();
         $(".viewuser").show();
         $.ajax({
             type: 'GET',
@@ -426,6 +437,7 @@ $(document).ready(function () {
         $(".viewcourse").hide();
         $(".viewgroup").hide();
         $(".viewuser").hide();
+        $(".viewaboutus").hide();
 
         $.ajax({
             type: "GET",
@@ -456,44 +468,17 @@ $(document).ready(function () {
         })
 
 
-    })
-    $("#allsubmissions").click(function () {
-        $("#show-sidebar").hide();
-        $(".home1").show();
-        $(".viewassignments").hide();
-        $(".home").hide();
-        $(".viewcourse").hide();
-        $(".viewgroup").hide();
-        $(".viewuser").hide();
-
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8000/app/submission/all",
-            data: {},
-            success: function (data) {
-                $('#table1').DataTable().clear().draw();
-                var list = [];
-                for (var i = data.length - 1; i >= 0; i--) {
-                    list = [];
-                    list.push(data.length - i);
-                    list.push(data[i]["assignmentId"]["assignmentName"]);
-                    st = new Date(data[i]["assignmentId"]["deadline"]);
-                    list.push(st.formatYYYYMMDD());
-                    st = new Date(data[i]["submittedOn"]);
-                    list.push(st.formatYYYYMMDD());
-                    list.push(data[i]["submittedBy"]["name"]);
-                    if (data[i]["attachment"] != null)
-                        list.push("<a target=\"_blank\" href=\"" + "/app/submission/viewfile/" + data[i]["attachment"] + "\" > <b>Download</b></a>");
-                    else
-                        list.push("No Attachment present");
-                    $("#table1").dataTable().fnAddData(list);
-                }
-            },
-            error: function (err) {
-
-            }
-        })
-    })
+    })    
+    $("#viewaboutus").click(function () {
+	    $("#show-sidebar").hide();
+	    $(".home").hide();
+	    $(".viewassignments").hide();
+	    $(".home1").hide();
+	    $(".viewcourse").hide();
+	    $(".viewgroup").hide();
+	    $(".viewuser").hide();
+        $(".viewaboutus").show();
+    });
 
     $("#show-sidebar").hide();
     $(".home").hide();
@@ -502,6 +487,7 @@ $(document).ready(function () {
     $(".viewcourse").hide();
     $(".viewgroup").hide();
     $(".viewuser").hide();
+    $(".viewaboutus").hide();
     assignmmentlist();
 
 });

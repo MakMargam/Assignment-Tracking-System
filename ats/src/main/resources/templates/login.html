@@ -18,12 +18,20 @@
     </head>
 
     <body>
-
-    <center>
-        <p style="color:red" data-th-if="${param.error != null and session.SPRING_SECURITY_LAST_EXCEPTION != null}"
-               data-th-text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
-        </p>
-    </center>
+		<center class="d-flex p-2 ">
+		    <div class="position-fixed  d-flex justify-content-center" style="width : 100%;">
+			     <div class="alert alert-danger " role="alert" data-th-if="${param.error != null and session.SPRING_SECURITY_LAST_EXCEPTION != null}"
+			      style="width : 70%;">
+					<strong data-th-text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+						This is a danger alert—check it out!
+					</strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				 </div>
+			</div>
+	    </center>
+    
 
 
 
@@ -35,35 +43,56 @@
                     <h3>Sign In</h3>
                 </div>
                 <div class="card-body">
-                    <form data-th-action="@{/login}" method="POST">
+                    <form data-th-action="@{/login}" method="POST" class="mt-2">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control username" name="username"  placeholder="username">
+                            <input type="text" class="form-control username" name="username"  placeholder="username"
+                             required="true">
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control password" name="password" placeholder="password">
+                            <input type="password" class="form-control password" name="password" placeholder="password"
+                            required="true">
                         </div>
                         <div class="row align-items-center remember">
                             <input type="checkbox" name="checkbox">Remember Me
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <input type="submit" value="Login" class="btn float-right login_btn submitbtn">
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account?<a data-th-href="@{/register}"> &nbsp <u>Sign Up</u></a>
+                        Don't have an account?
+                        <a data-th-href="@{/register}" > &nbsp <u>Sign Up</u></a>
                     </div>
                     <div class="d-flex justify-content-center" id="forgot">
-                        <a>Forgot your password?</a>
+                        <a href="#" data-toggle="modal" data-target="#forgotPasswordModal">Forgot your password?</a>
                     </div>
-
+					<!-- Modal -->
+					<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        Please request your Admin to reset the password.
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
                 </div>
             </div>
         </div>

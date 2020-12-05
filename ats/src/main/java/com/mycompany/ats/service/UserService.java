@@ -8,6 +8,7 @@ package com.mycompany.ats.service;
 import com.mycompany.ats.model.User;
 import com.mycompany.ats.repository.UserRepository;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,25 @@ public class UserService {
     
     public User fetchByUserName(String userName){
         return userRepo.findByuserName(userName).get();
+    }
+    
+    public int getUserCount() {
+    	Iterable<User> values = userRepo.findAll();
+    	if (values instanceof Collection<?>) {
+    		  return ((Collection<?>)values).size();
+    		}
+    	return 0;
+    }
+    
+    public int getAdminCount() {
+    	int count = 0;
+    	for(User user : userRepo.findAll())
+    	{
+    		if(user.getRoleId().getId() == 1 || user.getRoleId().getId() == 2)
+    			count ++;
+    	}
+    	
+    	return count;
     }
     
 }

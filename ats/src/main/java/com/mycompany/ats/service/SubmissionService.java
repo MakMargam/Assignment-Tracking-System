@@ -45,4 +45,12 @@ public class SubmissionService {
     public Submission fetch(int x){
         return submissionRepo.findById(x).get();
     }
+    
+    public int getSubmissionCount() {
+    	Iterable<Submission> values = submissionRepo.findAll();
+    	if (values instanceof Collection<?>) {
+    		  return ((Collection<?>)values).size();
+    		}
+    	return 0;
+    }
 }

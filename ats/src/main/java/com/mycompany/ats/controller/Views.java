@@ -6,6 +6,10 @@
 package com.mycompany.ats.controller;
 
 import com.mycompany.ats.dto.UserDetails;
+import com.mycompany.ats.service.AssignmentService;
+import com.mycompany.ats.service.SubmissionService;
+import com.mycompany.ats.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,12 +29,22 @@ public class Views {
 
     @Autowired
     private UserApi userApi;
-
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private AssignmentService assignmentService;
+    
+    @Autowired
+    private SubmissionService submissionService;
+    
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@RequestParam(name = "username") String username,
             @RequestParam(name = "password") String password,
-            @RequestParam(name = "name", required = false) String name) {
-
+            @RequestParam(name = "name", required = false) String name, Model model) {
+		String returnString = "login";
+		model.addAttribute("isError", false);
         if (name == null) {
             name = "";
         }
@@ -38,9 +52,12 @@ public class Views {
             UserDetails ud = userApi.adduser(username, password, name);
         } catch (Exception e) {
             System.out.println("User Already exists");
+            returnString = "register";
+            model.addAttribute("isError", true);
+            model.addAttribute("errorMsg", "User Already Exists");
         }
 
-        return "login";
+        return returnString;
     }
 
     @RequestMapping(value = "/")
@@ -50,7 +67,12 @@ public class Views {
         model.addAttribute("username", user.getUserName());
         model.addAttribute("name", user.getName());
         model.addAttribute("status", user.getRoleId().getRoleName());
-        if(user.getRoleId().getRoleName().equals("admin"))
+        model.addAttribute("photoUrl", user.getPhoto());
+        model.addAttribute("userCount", userService.getUserCount());
+        model.addAttribute("adminCount", userService.getAdminCount());
+        model.addAttribute("assignmentCount", assignmentService.getAssignmentCount());
+        model.addAttribute("submissionCount", submissionService.getSubmissionCount());
+        if(user.getRoleId().getRoleName().equals("admin") || user.getRoleId().getRoleName().equals("superadmin"))
                 return "home";
             else
                 return "user";

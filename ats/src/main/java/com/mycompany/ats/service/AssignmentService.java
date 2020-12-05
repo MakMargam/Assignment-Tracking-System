@@ -38,4 +38,12 @@ public class AssignmentService {
     {
         return assignmentRepo.findById(x).get();
     }
+    
+    public int getAssignmentCount() {
+    	Iterable<Assignment> values = assignmentRepo.findAll();
+    	if (values instanceof Collection<?>) {
+    		  return ((Collection<?>)values).size();
+    		}
+    	return 0;
+    }
 }

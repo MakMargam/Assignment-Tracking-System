@@ -17,10 +17,8 @@ $(document).ready(function(){
             $(".name").val("");
             $(".password").val("");
     })
-//    $(".submitbtn").click(function(){
-//        $(".username").text("");
-//        $(".name").text("");
-//        $(".password").text("");
-//
-//    })
+	$('#submitRegister').prop('disabled', true);
+	$("#agreeRegister").click(function (){
+		$('#submitRegister').prop('disabled', false);
+    })
 })
