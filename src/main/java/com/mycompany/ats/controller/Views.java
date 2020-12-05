@@ -122,6 +122,7 @@ public class Views {
             model.addAttribute("username", user.getUserName());
             model.addAttribute("name", user.getName());
             model.addAttribute("status", user.getRoleId().getRoleName());
+            model.addAttribute("photoUrl", user.getPhoto());
             return "user";
             }
         return "register";
