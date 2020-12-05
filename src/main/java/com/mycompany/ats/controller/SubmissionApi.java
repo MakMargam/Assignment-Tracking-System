@@ -163,7 +163,7 @@ public class SubmissionApi {
                 "attachment; filename=" + fileName.replace(" ", "_"));
         try {
             BufferedOutputStream br = new BufferedOutputStream(response.getOutputStream());
-            FileInputStream finput = new FileInputStream(uploadDirectory + "\\" + fileName);
+            FileInputStream finput = new FileInputStream(uploadDirectory + System.getProperty("file.separator")+  fileName);
             byte[] buff = new byte[1024];
             int length;
             while ((length = finput.read(buff)) > 0) {
