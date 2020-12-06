@@ -86,10 +86,10 @@ $(document).ready(function () {
             data: {},
             success: function (data) {
             if(data.length == 0){
-            	$(".viewassignments").html("<img src=\"/libs/no_assignments.jpg\" style=\"width:90%; height:90%;\" />");
+            	$(".viewassignments").html("<h2 class=\"aboutus-title\">View/Submit Assignment</h2> <img src=\"/libs/no_assignments.jpg\" style=\"width:90%; height:90%;\" />");
             }
             else{
-                $(".viewassignments").html("");
+                $(".viewassignments").html("<h2 class=\"aboutus-title\">View/Submit Assignment</h2>");
                 for (var i = data.length - 1; i >= 0; i--) {
                     var d;
                     $.ajax({
@@ -150,7 +150,6 @@ $(document).ready(function () {
                         success: function (data) {
 //                            console.log(data)
 //                            $(".home").show();
-//                            $(".home1").hide();
 //                            $(".viewassignments").hide();
 //                            $(".viewcourse").hide();
 //                            $(".viewgroup").hide();
@@ -177,10 +176,10 @@ $(document).ready(function () {
 
         $(".home").hide();
         $(".spinner").show();
-        $(".home1").hide();
         $(".viewassignments").show();
         $(".viewcourse").hide();
         $(".viewgroup").hide();
+        $(".profilepage").hide();
         $(".viewuser").hide();
         $(".viewaboutus").hide();
 
@@ -281,12 +280,12 @@ $(document).ready(function () {
 
         $(".home").hide();
         $(".viewassignments").hide();
-        $(".home1").hide();
         $(".viewuser").hide();
         $(".viewgroup").hide();
         $(".viewaboutus").hide();
         $(".viewcourse").show();
         $(".spinner").show();
+        $(".profilepage").hide();
         refreshcourse();
 
     });
@@ -338,13 +337,13 @@ $(document).ready(function () {
     $("#viewgroup").click(function (e) {
 
         $(".home").hide();
-        $(".home1").hide();
         $(".viewassignments").hide();
         $(".viewgroup").show();
         $(".viewuser").hide();
         $(".spinner").show();
         $(".viewcourse").hide();
         $(".viewaboutus").hide();
+        $(".profilepage").hide();
         refreshgroup();
     });
 
@@ -409,11 +408,11 @@ $(document).ready(function () {
     $("#viewuser").click(function () {
         $(".home").hide();
         $(".viewassignments").hide();
-        $(".home1").hide();
         $(".viewcourse").hide();
         $(".viewgroup").hide();
         $(".viewaboutus").hide();
         $(".spinner").show();
+        $(".profilepage").hide();
         $(".viewuser").show();
         $.ajax({
             type: 'GET',
@@ -454,10 +453,10 @@ $(document).ready(function () {
         $(".home").show();
         $(".spinner").show();
         $(".viewassignments").hide();
-        $(".home1").hide();
         $(".viewcourse").hide();
         $(".viewgroup").hide();
         $(".viewuser").hide();
+        $(".profilepage").hide();
         $(".viewaboutus").hide();
 
         $.ajax({
@@ -495,23 +494,103 @@ $(document).ready(function () {
 	    $("#show-sidebar").hide();
 	    $(".home").hide();
 	    $(".viewassignments").hide();
-	    $(".home1").hide();
 	    $(".viewcourse").hide();
 	    $(".viewgroup").hide();
 	    $(".viewuser").hide();
 	    $(".spinner").hide();
         $(".viewaboutus").show();
+        $(".profilepage").hide();
+    });
+	$("#profilepage, #dropdownprofile").click(function () {
+         $("#show-sidebar").hide();
+	    $(".home").hide();
+	    $(".viewassignments").hide();
+	    $(".viewcourse").hide();
+	    $(".viewgroup").hide();
+	    $(".viewuser").hide();
+	    $(".spinner").hide();
+        $(".viewaboutus").hide();
+        $(".profilepage").show();
+    });
+    
+    $("#changepasswordreenterpassword, #changepasswordnewpassword").keyup(function(){
+
+        if($("#changepasswordcurrentpassword").val() == ''){
+            $('#changepasswordsubmit').prop('disabled', true);
+            $("#changepassworderror1").show();
+        }
+        else{
+            $("#changepassworderror1").hide();
+        }
+
+        if($("#changepasswordreenterpassword").val() == $("#changepasswordnewpassword").val() == ''){
+            $('#changepasswordsubmit').prop('disabled', true);
+        }
+
+        if($("#changepasswordreenterpassword").val() == $("#changepasswordnewpassword").val()){
+            $("#changepassworderror").hide();
+            $('#changepasswordsubmit').prop('disabled', false);
+        }
+        else{
+            $("#changepassworderror").show();
+            $('#changepasswordsubmit').prop('disabled', true);
+        }
+      });
+
+    $("#changepasswordsubmit").click(function(){
+
+        $.ajax({
+            type: 'POST',
+            url: "/user/changePassword",
+            data: {
+                username: $("#changepasswordusername").val(),
+                oldpassword : $("#changepasswordcurrentpassword").val(),
+                newpassword : $("#changepasswordnewpassword").val()
+            },
+            success: function (data) {
+            console.log(data);
+                if(! (data == null )&&(data == '')){
+                    $("#changepassworderr").show();
+                    setTimeout(function(){
+                        $("#changepassworderr").hide();
+                        $("#changepasswordcurrentpassword").val("");
+                        $("#changepasswordnewpassword").val("");
+                        $("#changepasswordreenterpassword").val("");
+                    }, 3000);
+                }
+                else{
+                    $("#changepasswordsuccess").show();
+                    setTimeout(function(){
+                        $("#changepasswordsuccess").hide();
+                        $("#changepasswordcurrentpassword").val("");
+                        $("#changepasswordnewpassword").val("");
+                        $("#changepasswordreenterpassword").val("");
+                    }, 3000);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                $("#changepassworderr").show();
+                setTimeout(function(){
+                    $("#changepassworderr").hide();
+                    $("#changepasswordcurrentpassword").val("");
+                    $("#changepasswordnewpassword").val("");
+                    $("#changepasswordreenterpassword").val("");
+                }, 3000);
+            }
+        });
     });
 
+    
     $("#show-sidebar").hide();
     $(".home").hide();
     $(".spinner").hide();
     $(".viewassignments").show();
-    $(".home1").hide();
     $(".viewcourse").hide();
     $(".viewgroup").hide();
     $(".viewuser").hide();
     $(".viewaboutus").hide();
+    $(".profilepage").hide();
     assignmmentlist();
 
 });

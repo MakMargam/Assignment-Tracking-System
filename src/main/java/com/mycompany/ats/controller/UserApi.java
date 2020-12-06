@@ -151,7 +151,7 @@ public class UserApi {
 
         if (role != null) {
             if (role.equals("user")) {
-                user.setRoleId(roleService.fetch(1));
+                user.setRoleId(roleService.fetch(3));
             } else if (role.equals("admin")) {
                 user.setRoleId(roleService.fetch(2));
             }
@@ -177,6 +177,25 @@ public class UserApi {
         }
 
         return users;
+    }
+    
+    @RequestMapping(value = "/changePassword",
+            method = RequestMethod.POST,
+            produces = "application/json")
+    public UserDetails changePassword(@RequestParam(name = "username", required = true) String userName,
+    		@RequestParam(name = "oldpassword", required = true) String oldPassword,
+    		@RequestParam(name = "newpassword", required = true) String newPassword) {
+    	User user = userService.fetchByUserName(userName);
+        if (user == null) {
+            return null;
+        }
+        if(user.getPassword().equals(oldPassword)) {
+        	user.setPassword(newPassword);
+        }else {
+        	return null;
+        }
+        
+    	return new UserDetails(userService.newUser(user)); 
     }
 
     /**
@@ -233,6 +252,7 @@ public class UserApi {
         }
 
     }
+    
     
     
 }

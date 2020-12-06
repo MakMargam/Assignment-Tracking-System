@@ -68,6 +68,7 @@ public class Views {
         model.addAttribute("name", user.getName());
         model.addAttribute("status", user.getRoleId().getRoleName());
         model.addAttribute("photoUrl", user.getPhoto());
+        model.addAttribute("usergroup", user.getGroupId().getGroupName());
         model.addAttribute("userCount", userService.getUserCount());
         model.addAttribute("adminCount", userService.getAdminCount());
         model.addAttribute("assignmentCount", assignmentService.getAssignmentCount());
@@ -86,6 +87,7 @@ public class Views {
             UserDetails user = userApi.fetchByUserName(username);
             model.addAttribute("username", user.getUserName());
             model.addAttribute("name", user.getName());
+            model.addAttribute("usergroup", user.getGroupId().getGroupName());
             model.addAttribute("status", user.getRoleId().getRoleName());
             model.addAttribute("photoUrl", user.getPhoto());
             if(user.getRoleId().getRoleName().equals("admin"))
@@ -121,6 +123,7 @@ public class Views {
             UserDetails user = userApi.fetchByUserName(username);
             model.addAttribute("username", user.getUserName());
             model.addAttribute("name", user.getName());
+            model.addAttribute("usergroup", user.getGroupId().getGroupName());
             model.addAttribute("status", user.getRoleId().getRoleName());
             model.addAttribute("photoUrl", user.getPhoto());
             return "user";

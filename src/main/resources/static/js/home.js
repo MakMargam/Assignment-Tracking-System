@@ -10,25 +10,26 @@ jQuery(function ($) {
     $(".viewuser").hide();
     $(".viewsubmissions").hide();
     $(".viewaboutus").hide();
+    $(".profilepage").hide();
 
 
     $(".sidebar-dropdown > a").click(function () {
         $(".sidebar-submenu").slideUp(200);
         if (
-                $(this)
+            $(this)
                 .parent()
                 .hasClass("active")
-                ) {
+        ) {
             $(".sidebar-dropdown").removeClass("active");
             $(this).parent().removeClass("active");
         } else {
             $(".sidebar-dropdown").removeClass("active");
             $(this)
-                    .next(".sidebar-submenu")
-                    .slideDown(200);
+                .next(".sidebar-submenu")
+                .slideDown(200);
             $(this)
-                    .parent()
-                    .addClass("active");
+                .parent()
+                .addClass("active");
         }
     });
     $("#close-sidebar").click(function () {
@@ -39,37 +40,37 @@ jQuery(function ($) {
         $(".page-wrapper").addClass("toggled");
         $("#show-sidebar").hide();
     });
-    
+
     $('#table').DataTable(
-            {
-                "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
-                "iDisplayLength": 5
-            });
+        {
+            "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            "iDisplayLength": 5
+        });
     $('#table1').DataTable(
-            {
-                "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
-                "iDisplayLength": 10
-            });
+        {
+            "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
+            "iDisplayLength": 10
+        });
     $('#table2').DataTable(
-            {
-                "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
-                "iDisplayLength": 5
-            });
+        {
+            "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            "iDisplayLength": 5
+        });
     $('#table3').DataTable(
-            {
-                "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
-                "iDisplayLength": 5
-            });
+        {
+            "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            "iDisplayLength": 5
+        });
     $('#table4').DataTable(
-            {
-                "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
-                "iDisplayLength": 10
-            });
+        {
+            "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
+            "iDisplayLength": 10
+        });
     $('#table5').DataTable(
-            {
-                "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
-                "iDisplayLength": 5
-            });
+        {
+            "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            "iDisplayLength": 5
+        });
 });
 
 $(document).ready(function () {
@@ -78,8 +79,8 @@ $(document).ready(function () {
 
     Date.prototype.formatYYYYMMDD = function () {
         return this.getFullYear() +
-                "/" + (this.getMonth() + 1) +
-                "/" + this.getDate();
+            "/" + (this.getMonth() + 1) +
+            "/" + this.getDate();
     }
 
     function assignmmentlist() {
@@ -127,9 +128,10 @@ $(document).ready(function () {
         $(".viewcourse").hide();
         $(".viewgroup").hide();
         $(".viewuser").hide();
-		$(".viewaboutus").hide();
-		$(".viewsubmissions").hide();
-		
+        $(".viewaboutus").hide();
+        $(".viewsubmissions").hide();
+        $(".profilepage").hide();
+
         $("#selectgroups").html("");
         $("#selectcourse").html("");
         $("#selectgroups5").html("");
@@ -170,7 +172,7 @@ $(document).ready(function () {
         assignmmentlist();
 
         $("#addnewassignment").click(function () {
-			$(".spinner").show();
+            $(".spinner").show();
             assignmmentlist();
         });
     });
@@ -184,6 +186,7 @@ $(document).ready(function () {
         $(".viewsubmissions").hide();
         $(".editassignments").show();
         $(".viewaboutus").hide();
+        $(".profilepage").hide();
 
         function editassignmmentlist() {
             $.ajax({
@@ -226,11 +229,11 @@ $(document).ready(function () {
                                 id: id
                             },
                             success: function (data) {
-//                            console.log($(this).attr('id'));
+                                //                            console.log($(this).attr('id'));
                                 $("#assignmentname5").val(data["assignmentName"]);
                                 $("#description5").val(data["assignmentDesc"]);
-//                                $('#selectgroups5 option:selected').text(data["postedFor"]["groupName"])
-//                                $('#selectcourse5 option:selected').text(data["courseId"]["courseName"])
+                                //                                $('#selectgroups5 option:selected').text(data["postedFor"]["groupName"])
+                                //                                $('#selectcourse5 option:selected').text(data["courseId"]["courseName"])
                                 $('#deadline5').val(data["deadline"].substring(0, 10));
                                 $('#startdate5').val(data["startTime"].substring(0, 10));
 
@@ -284,8 +287,8 @@ $(document).ready(function () {
 
 
     $("#addnewassignment").click(function () {
-    	$(".spinner").show();
-//        var files = $("#files");
+        $(".spinner").show();
+        //        var files = $("#files");
         var formData = new FormData($("#upload-file-form")[0]);
         formData.append("assignmentname", $("#assignmentname").val());
         formData.append("postedby", $('#postedby option:selected').text());
@@ -305,6 +308,8 @@ $(document).ready(function () {
             timeout: 600000,
             success: function (data) {
                 assignmmentlist();
+                $("#assignmentname").val("");
+                $("#description").val("");
             },
             error: function (err) {
                 console.log(err);
@@ -313,7 +318,7 @@ $(document).ready(function () {
     });
 
     function refreshcourse() {
-		$(".spinner").show();
+        $(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/course/all",
@@ -348,12 +353,13 @@ $(document).ready(function () {
         $(".viewcourse").show();
         $(".viewaboutus").hide();
         $(".viewsubmissions").hide();
+        $(".profilepage").hide();
         refreshcourse();
 
     });
 
     $("#addnewcourse").click(function () {
-		$(".spinner").show();
+        $(".spinner").show();
         $.ajax({
             type: 'POST',
             url: "/course/",
@@ -361,8 +367,9 @@ $(document).ready(function () {
                 coursename: $("#coursename").val(),
             },
             success: function (data) {
-//                console.log(data);
+                //                console.log(data);
                 refreshcourse();
+                $("#coursename").val("");
                 $(".spinner").hide();
             },
             error: function (err) {
@@ -373,7 +380,7 @@ $(document).ready(function () {
     });
 
     function refreshgroup() {
-    	$(".spinner").show();
+        $(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/group/all",
@@ -389,7 +396,7 @@ $(document).ready(function () {
                     list.push(data[i]["groupDesc"]);
                     $("#table3").dataTable().fnAddData(list);
                 }
-				$(".spinner").hide();
+                $(".spinner").hide();
             },
             error: function (error) {
                 console.log(error);
@@ -398,7 +405,7 @@ $(document).ready(function () {
         });
     }
     $("#viewgroup").click(function (e) {
-		$(".spinner").show();
+        $(".spinner").show();
         $(".home").hide();
         $(".spinner").show();
         $(".viewassignments").hide();
@@ -408,11 +415,12 @@ $(document).ready(function () {
         $(".viewcourse").hide();
         $(".viewaboutus").hide();
         $(".viewsubmissions").hide();
+        $(".profilepage").hide();
         refreshgroup();
     });
 
     $("#addnewgroup").click(function () {
-		$(".spinner").show();
+        $(".spinner").show();
         $.ajax({
             type: 'POST',
             url: "/group/",
@@ -421,8 +429,10 @@ $(document).ready(function () {
                 groupdesc: $("#groupdesc").val(),
             },
             success: function (data) {
-//                console.log(data);
+                //                console.log(data);
                 refreshgroup();
+                $("#groupname").val("");
+                $("#groupdesc").val("");
                 $(".spinner").hide();
             },
             error: function (err) {
@@ -433,7 +443,7 @@ $(document).ready(function () {
     });
 
     function refreshuser() {
-    $(".spinner").show();
+        $(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/user/all",
@@ -445,10 +455,10 @@ $(document).ready(function () {
                 for (var i = data.length - 1; i >= 0; i--) {
                     list = [];
                     list.push(data.length - i);
-                    if(data[i]["photo"]!=null)
-                    	list.push("<img style=\"height:100px; width:100px;\" src=\"/user/viewfile/" + data[i]["photo"] + "\">");
+                    if (data[i]["photo"] != null)
+                        list.push("<img style=\"height:100px; width:100px;\" src=\"/user/viewfile/" + data[i]["photo"] + "\">");
                     else
-                    	list.push("<img style=\"height:100px; width:100px;\" src=\"/user/viewfile/images.png\">");
+                        list.push("<img style=\"height:100px; width:100px;\" src=\"/user/viewfile/images.png\">");
                     list.push(data[i]["userName"]);
                     list.push(data[i]["name"]);
                     list.push(data[i]["roleId"]["roleName"]);
@@ -481,6 +491,7 @@ $(document).ready(function () {
         $(".viewsubmissions").hide();
         $(".viewuser").show();
         $(".viewaboutus").hide();
+        $(".profilepage").hide();
         $.ajax({
             type: 'GET',
             url: "/group/all",
@@ -525,10 +536,10 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     $("#viewsubmissions").click(function () {
-       $(".home").hide();
-       $(".spinner").show();
+        $(".home").hide();
+        $(".spinner").show();
         $(".viewassignments").hide();
         $(".editassignments").hide();
         $(".viewcourse").hide();
@@ -536,6 +547,7 @@ $(document).ready(function () {
         $(".viewuser").hide();
         $(".viewsubmissions").show();
         $(".viewaboutus").hide();
+        $(".profilepage").hide();
 
         $.ajax({
             type: "GET",
@@ -562,12 +574,12 @@ $(document).ready(function () {
                 $(".spinner").hide();
             },
             error: function (err) {
-				$(".spinner").hide();
+                $(".spinner").hide();
             }
         })
     })
-    
-    
+
+
     $("#viewaboutus").click(function () {
         $(".home").hide();
         $(".spinner").hide();
@@ -578,8 +590,9 @@ $(document).ready(function () {
         $(".viewuser").hide();
         $(".viewaboutus").show();
         $(".viewsubmissions").hide();
+        $(".profilepage").hide();
     });
-    
+
     $("#home").click(function () {
         $(".home").show();
         $(".spinner").hide();
@@ -590,8 +603,20 @@ $(document).ready(function () {
         $(".viewuser").hide();
         $(".viewsubmissions").hide();
         $(".viewaboutus").hide();
+        $(".profilepage").hide();
     });
-
+    $("#profilepage, #dropdownprofile").click(function () {
+        $(".home").hide();
+        $(".spinner").hide();
+        $(".viewassignments").hide();
+        $(".editassignments").hide();
+        $(".viewcourse").hide();
+        $(".viewgroup").hide();
+        $(".viewuser").hide();
+        $(".viewsubmissions").hide();
+        $(".viewaboutus").hide();
+        $(".profilepage").show();
+    });
 
 
     $.ajax({
@@ -600,12 +625,80 @@ $(document).ready(function () {
         data: {},
         success: function (data) {
             console.log(data["photo"]);
-            if(data["photo"]!=null)
+            if (data["photo"] != null)
                 $("#profilepic").attr("src", "/user/viewfile/" + data["photo"]);
         },
         error: function (err) {
             console.log(err);
         }
     })
+    
+    $("#changepasswordreenterpassword, #changepasswordnewpassword").keyup(function(){
+
+        if($("#changepasswordcurrentpassword").val() == ''){
+            $('#changepasswordsubmit').prop('disabled', true);
+            $("#changepassworderror1").show();
+        }
+        else{
+            $("#changepassworderror1").hide();
+        }
+
+        if($("#changepasswordreenterpassword").val() == $("#changepasswordnewpassword").val() == ''){
+            $('#changepasswordsubmit').prop('disabled', true);
+        }
+
+        if($("#changepasswordreenterpassword").val() == $("#changepasswordnewpassword").val()){
+            $("#changepassworderror").hide();
+            $('#changepasswordsubmit').prop('disabled', false);
+        }
+        else{
+            $("#changepassworderror").show();
+            $('#changepasswordsubmit').prop('disabled', true);
+        }
+      });
+
+    $("#changepasswordsubmit").click(function(){
+
+        $.ajax({
+            type: 'POST',
+            url: "/user/changePassword",
+            data: {
+                username: $("#changepasswordusername").val(),
+                oldpassword : $("#changepasswordcurrentpassword").val(),
+                newpassword : $("#changepasswordnewpassword").val()
+            },
+            success: function (data) {
+            console.log(data);
+                if(! (data == null )&&(data == '')){
+                    $("#changepassworderr").show();
+                    setTimeout(function(){
+                        $("#changepassworderr").hide();
+                        $("#changepasswordcurrentpassword").val("");
+                        $("#changepasswordnewpassword").val("");
+                        $("#changepasswordreenterpassword").val("");
+                    }, 3000);
+                }
+                else{
+                    $("#changepasswordsuccess").show();
+                    setTimeout(function(){
+                        $("#changepasswordsuccess").hide();
+                        $("#changepasswordcurrentpassword").val("");
+                        $("#changepasswordnewpassword").val("");
+                        $("#changepasswordreenterpassword").val("");
+                    }, 3000);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                $("#changepassworderr").show();
+                setTimeout(function(){
+                    $("#changepassworderr").hide();
+                    $("#changepasswordcurrentpassword").val("");
+                    $("#changepasswordnewpassword").val("");
+                    $("#changepasswordreenterpassword").val("");
+                }, 3000);
+            }
+        });
+    });
 
 });
