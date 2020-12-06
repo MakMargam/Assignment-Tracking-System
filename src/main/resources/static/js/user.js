@@ -28,9 +28,7 @@ jQuery(function ($) {
         $(".page-wrapper").addClass("toggled");
         $("#show-sidebar").hide();
     });
-    $("#viewassignment").click(function () {
-
-    })
+    
     $('#table').DataTable(
             {
                 "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
@@ -81,6 +79,7 @@ $(document).ready(function () {
             '<span class = "mr-2 float-right ml-auto">  ##PostedFor##</span></div></div><br>';
 
     function assignmmentlist() {
+    $(".spinner").hide();
         $.ajax({
             type: 'GET',
             url: "/assignment/all",
@@ -164,10 +163,11 @@ $(document).ready(function () {
                         },
                     })
                 })
-
+				$(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
 
@@ -176,6 +176,7 @@ $(document).ready(function () {
     $("#viewassignment").click(function (e) {
 
         $(".home").hide();
+        $(".spinner").show();
         $(".home1").hide();
         $(".viewassignments").show();
         $(".viewcourse").hide();
@@ -197,9 +198,11 @@ $(document).ready(function () {
                     $("#selectcourse").append("<option>" + item["courseName"] + "</option>");
                     $("#selectcourse5").append("<option>" + item["courseName"] + "</option>");
                 });
+                $(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
         $.ajax({
@@ -211,9 +214,11 @@ $(document).ready(function () {
                     $("#selectgroups").append("<option>" + item["groupName"] + "</option>");
                     $("#selectgroups5").append("<option>" + item["groupName"] + "</option>");
                 });
+                $(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
 
@@ -249,7 +254,7 @@ $(document).ready(function () {
     });
 
     function refreshcourse() {
-
+		$(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/course/all",
@@ -264,10 +269,11 @@ $(document).ready(function () {
                     list.push(data[i]["courseName"]);
                     $("#table2").dataTable().fnAddData(list);
                 }
-
+				$(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
     }
@@ -280,12 +286,13 @@ $(document).ready(function () {
         $(".viewgroup").hide();
         $(".viewaboutus").hide();
         $(".viewcourse").show();
+        $(".spinner").show();
         refreshcourse();
 
     });
 
     $("#addnewcourse").click(function () {
-
+	$(".spinner").show();
         $.ajax({
             type: 'POST',
             url: "/course/",
@@ -295,9 +302,11 @@ $(document).ready(function () {
             success: function (data) {
 //                console.log(data);
                 refreshcourse();
+                $(".spinner").hide();
             },
             error: function (err) {
                 console.log(err);
+                $(".spinner").hide();
             }
         });
     });
@@ -318,10 +327,11 @@ $(document).ready(function () {
                     list.push(data[i]["groupDesc"]);
                     $("#table3").dataTable().fnAddData(list);
                 }
-
+				$(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
     }
@@ -332,6 +342,7 @@ $(document).ready(function () {
         $(".viewassignments").hide();
         $(".viewgroup").show();
         $(".viewuser").hide();
+        $(".spinner").show();
         $(".viewcourse").hide();
         $(".viewaboutus").hide();
         refreshgroup();
@@ -349,14 +360,17 @@ $(document).ready(function () {
             success: function (data) {
 //                console.log(data);
                 refreshgroup();
+                
             },
             error: function (err) {
                 console.log(err);
+                $(".spinner").hide();
             }
         });
     });
 
     function refreshuser() {
+    	$(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/user/all",
@@ -384,10 +398,11 @@ $(document).ready(function () {
                         $('#name1').val($(this).attr('name'));
                     })
                 }
-
+				$(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
     }
@@ -398,6 +413,7 @@ $(document).ready(function () {
         $(".viewcourse").hide();
         $(".viewgroup").hide();
         $(".viewaboutus").hide();
+        $(".spinner").show();
         $(".viewuser").show();
         $.ajax({
             type: 'GET',
@@ -407,9 +423,11 @@ $(document).ready(function () {
                 $.each(data, function (index, item) {
                     $("#selectgroups1").append("<option>" + item["groupName"] + "</option>");
                 });
+                $(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
         refreshuser();
@@ -423,15 +441,18 @@ $(document).ready(function () {
         success: function (data) {
             if (data["photo"] != null)
                 $("#profilepic").attr("src", "/user/viewfile/" + data["photo"]);
+            $(".spinner").hide();
         },
         error: function (err) {
             console.log(err);
+            $(".spinner").hide();
         }
     })
 
     $("#mysubmissions").click(function () {
         $("#show-sidebar").hide();
         $(".home").show();
+        $(".spinner").show();
         $(".viewassignments").hide();
         $(".home1").hide();
         $(".viewcourse").hide();
@@ -461,9 +482,10 @@ $(document).ready(function () {
                         list.push("No Attachment present");
                     $("#table").dataTable().fnAddData(list);
                 }
+                $(".spinner").hide();
             },
             error: function (err) {
-
+				$(".spinner").hide();
             }
         })
 
@@ -477,11 +499,13 @@ $(document).ready(function () {
 	    $(".viewcourse").hide();
 	    $(".viewgroup").hide();
 	    $(".viewuser").hide();
+	    $(".spinner").hide();
         $(".viewaboutus").show();
     });
 
     $("#show-sidebar").hide();
     $(".home").hide();
+    $(".spinner").hide();
     $(".viewassignments").show();
     $(".home1").hide();
     $(".viewcourse").hide();

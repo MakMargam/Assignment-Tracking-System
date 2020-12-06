@@ -2,6 +2,7 @@ jQuery(function ($) {
     $("#show-sidebar").hide();
 
     $(".home").show();
+    $(".spinner").hide();
     $(".viewassignments").hide();
     $(".editassignments").hide();
     $(".viewcourse").hide();
@@ -38,9 +39,7 @@ jQuery(function ($) {
         $(".page-wrapper").addClass("toggled");
         $("#show-sidebar").hide();
     });
-    $("#viewassignment").click(function () {
-
-    })
+    
     $('#table').DataTable(
             {
                 "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
@@ -111,6 +110,7 @@ $(document).ready(function () {
                     list.push(data[i]["postedBy"]["name"]);
                     $("#table").dataTable().fnAddData(list);
                 }
+                $(".spinner").hide();
             },
             error: function (error) {
                 console.log(error)
@@ -121,6 +121,7 @@ $(document).ready(function () {
     $("#viewassignment, #editassignment").click(function (e) {
 
         $(".home").hide();
+        $(".spinner").show();
         $(".viewassignments").show();
         $(".editassignments").hide();
         $(".viewcourse").hide();
@@ -143,9 +144,11 @@ $(document).ready(function () {
                     $("#selectcourse").append("<option>" + item["courseName"] + "</option>");
                     $("#selectcourse5").append("<option>" + item["courseName"] + "</option>");
                 });
+                $(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
         $.ajax({
@@ -157,6 +160,7 @@ $(document).ready(function () {
                     $("#selectgroups").append("<option>" + item["groupName"] + "</option>");
                     $("#selectgroups5").append("<option>" + item["groupName"] + "</option>");
                 });
+                $(".spinner").hide();
             },
             error: function (error) {
                 console.log(error)
@@ -166,12 +170,13 @@ $(document).ready(function () {
         assignmmentlist();
 
         $("#addnewassignment").click(function () {
-
+			$(".spinner").show();
             assignmmentlist();
         });
     });
     $("#editassignment").click(function (e) {
         $(".home").hide();
+        $(".spinner").show();
         $(".viewassignments").hide();
         $(".viewcourse").hide();
         $(".viewuser").hide();
@@ -210,6 +215,7 @@ $(document).ready(function () {
 
 
                     }
+                    $(".spinner").hide();
                     $(".editassbtn").click(function () {
                         id = $(this).attr('id');
                         console.log(id);
@@ -278,6 +284,7 @@ $(document).ready(function () {
 
 
     $("#addnewassignment").click(function () {
+    	$(".spinner").show();
 //        var files = $("#files");
         var formData = new FormData($("#upload-file-form")[0]);
         formData.append("assignmentname", $("#assignmentname").val());
@@ -306,7 +313,7 @@ $(document).ready(function () {
     });
 
     function refreshcourse() {
-
+		$(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/course/all",
@@ -321,16 +328,19 @@ $(document).ready(function () {
                     list.push(data[i]["courseName"]);
                     $("#table2").dataTable().fnAddData(list);
                 }
+                $(".spinner").hide();
 
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
     }
     $("#viewcourse").click(function (e) {
 
         $(".home").hide();
+        $(".spinner").show();
         $(".viewassignments").hide();
         $(".editassignments").hide();
         $(".viewuser").hide();
@@ -343,7 +353,7 @@ $(document).ready(function () {
     });
 
     $("#addnewcourse").click(function () {
-
+		$(".spinner").show();
         $.ajax({
             type: 'POST',
             url: "/course/",
@@ -353,14 +363,17 @@ $(document).ready(function () {
             success: function (data) {
 //                console.log(data);
                 refreshcourse();
+                $(".spinner").hide();
             },
             error: function (err) {
                 console.log(err);
+                $(".spinner").hide();
             }
         });
     });
 
     function refreshgroup() {
+    	$(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/group/all",
@@ -376,16 +389,18 @@ $(document).ready(function () {
                     list.push(data[i]["groupDesc"]);
                     $("#table3").dataTable().fnAddData(list);
                 }
-
+				$(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
     }
     $("#viewgroup").click(function (e) {
-
+		$(".spinner").show();
         $(".home").hide();
+        $(".spinner").show();
         $(".viewassignments").hide();
         $(".editassignments").hide();
         $(".viewgroup").show();
@@ -397,7 +412,7 @@ $(document).ready(function () {
     });
 
     $("#addnewgroup").click(function () {
-
+		$(".spinner").show();
         $.ajax({
             type: 'POST',
             url: "/group/",
@@ -408,14 +423,17 @@ $(document).ready(function () {
             success: function (data) {
 //                console.log(data);
                 refreshgroup();
+                $(".spinner").hide();
             },
             error: function (err) {
                 console.log(err);
+                $(".spinner").hide();
             }
         });
     });
 
     function refreshuser() {
+    $(".spinner").show();
         $.ajax({
             type: 'GET',
             url: "/user/all",
@@ -444,15 +462,18 @@ $(document).ready(function () {
                         $('#name1').val($(this).attr('name'));
                     })
                 }
+                $(".spinner").hide();
 
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
     }
     $("#viewuser").click(function () {
         $(".home").hide();
+        $(".spinner").show();
         $(".viewassignments").hide();
         $(".editassignments").hide();
         $(".viewcourse").hide();
@@ -468,9 +489,11 @@ $(document).ready(function () {
                 $.each(data, function (index, item) {
                     $("#selectgroups1").append("<option>" + item["groupName"] + "</option>");
                 });
+                $(".spinner").hide();
             },
             error: function (error) {
-                console.log(error)
+                console.log(error);
+                $(".spinner").hide();
             }
         });
         refreshuser();
@@ -505,6 +528,7 @@ $(document).ready(function () {
     
     $("#viewsubmissions").click(function () {
        $(".home").hide();
+       $(".spinner").show();
         $(".viewassignments").hide();
         $(".editassignments").hide();
         $(".viewcourse").hide();
@@ -535,9 +559,10 @@ $(document).ready(function () {
                         list.push("No Attachment present");
                     $("#table5").dataTable().fnAddData(list);
                 }
+                $(".spinner").hide();
             },
             error: function (err) {
-
+				$(".spinner").hide();
             }
         })
     })
@@ -545,6 +570,7 @@ $(document).ready(function () {
     
     $("#viewaboutus").click(function () {
         $(".home").hide();
+        $(".spinner").hide();
         $(".viewassignments").hide();
         $(".editassignments").hide();
         $(".viewcourse").hide();
@@ -556,6 +582,7 @@ $(document).ready(function () {
     
     $("#home").click(function () {
         $(".home").show();
+        $(".spinner").hide();
         $(".viewassignments").hide();
         $(".editassignments").hide();
         $(".viewcourse").hide();
