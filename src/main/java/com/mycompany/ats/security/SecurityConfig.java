@@ -37,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable().
                 cors().disable()
                 .authorizeRequests()
+	                .antMatchers("/favicon.ico")
+	                .permitAll()
                     .antMatchers("/admin/*").hasAnyAuthority("admin", "superadmin")
                     .antMatchers("/").hasAnyAuthority("user", "admin", "superadmin")
                     .antMatchers("/*").hasAnyAuthority("user", "admin", "superadmin")
