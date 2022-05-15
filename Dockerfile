@@ -5,8 +5,8 @@ FROM maven:3.8.5-openjdk-8
 
 WORKDIR /home/app
 
-COPY src ./src
-COPY pom.xml .
+COPY src /home/app/src
+COPY pom.xml /home/app
 
-RUN mvn clean package
-RUN ls
+RUN mvn -f /home/app/pom.xml clean package
+RUN ls /home/app/target
