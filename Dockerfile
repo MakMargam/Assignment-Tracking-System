@@ -13,6 +13,6 @@ RUN ls /home/app/target
 
 FROM openjdk:8-jre-slim
 
-COPY build /home/app/target/ats-1.0-SNAPSHOT.jar /usr/local/lib/ats-1.0-SNAPSHOT.jar
+COPY --from=build /home/app/target/ats-1.0-SNAPSHOT.jar /usr/local/lib/ats-1.0-SNAPSHOT.jar
 EXPOSE 8000
 entrypoint ["java", "-jar", "/usr/local/lib/ats-1.0-SNAPSHOT.jar"]
