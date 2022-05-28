@@ -25,8 +25,8 @@ pipeline {
         }
         stage('Docker Build'){
             steps{
-                ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
-                docker.withRegistery('','DCR-personal'){
+                docker.withRegistery('https://index.docker.io/v1/','DCR-personal'){
+                    ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
                     ats_image.push()
                 }
             }
