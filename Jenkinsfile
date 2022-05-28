@@ -28,7 +28,7 @@ pipeline {
 
                 def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
                 docker.withRegistry('', 'DCR-personal') {  
-                    customImage.push()
+                    ats_image.push()
                     // sh "docker push my-image:${env.BUILD_ID}"
 
                 }
