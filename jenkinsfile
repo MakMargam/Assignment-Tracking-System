@@ -1,6 +1,6 @@
 // @Library('global-vars') _
 pipeline {
-    // checkout scm
+    checkout scm
     agent none;
 
     stages {
@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script{
                     
-                git 'https://github.com/MakMargam/Assignment-Tracking-System.git'
+                // git 'https://github.com/MakMargam/Assignment-Tracking-System.git'
 
                 sh "mvn clean package"
                 }
