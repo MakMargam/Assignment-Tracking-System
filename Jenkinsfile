@@ -2,7 +2,7 @@
 node {
     agent none;
 
-    stages {
+    // stages {
         stage('Maven Build') {
             agent any;
             tools {
@@ -32,5 +32,5 @@ node {
             // }
         }
         
-    }
+    // }
 }
