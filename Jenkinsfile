@@ -1,10 +1,11 @@
 // @Library('global-vars') _
 pipeline {
-    checkout scm
+    
     agent none;
 
     stages {
         stage('Maven Build') {
+            checkout scm
             agent any;
             tools {
                 maven "MAVEN"
