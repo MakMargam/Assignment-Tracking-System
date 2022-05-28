@@ -38,7 +38,7 @@ pipeline {
         stage('Docker Build'){
             agent any
             steps{
-                sh 'docker build -t mak2497/ats-image:${env.BUILD_ID} .'
+                sh 'docker build -t mak2497/ats-image:0.0.1 .'
             }
         }
         
