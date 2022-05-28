@@ -24,12 +24,12 @@ pipeline {
             }
         }
         stage('Docker Build'){
-            steps{
+            // steps{
                 docker.withRegistery('https://index.docker.io/v1/','DCR-personal'){
-                    ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
+                    def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
                     ats_image.push()
                 }
-            }
+            // }
         }
         
     }
