@@ -1,6 +1,6 @@
 @Library('global-vars') _
 node {
-    agent none;
+    // agent none;
 
     // stages {
         stage('Maven Build') {
