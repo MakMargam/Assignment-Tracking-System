@@ -4,7 +4,6 @@ pipeline {
     agent none;
 
     stages {
-        checkout scm
         stage('Maven Build') {
             
             agent any;
