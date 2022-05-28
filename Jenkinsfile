@@ -23,16 +23,22 @@ pipeline {
                 }
             }
         }
-        stage('Docker Build'){
-            agent any 
-            steps{
-                script{
+        // stage('Docker Build'){
+        //     agent any 
+        //     steps{
+        //         script{
 
-                docker.withRegistery('https://index.docker.io/v1/','DCR-personal'){
-                    def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
-                    ats_image.push()
-                }
-                }
+        //         docker.withRegistery('https://index.docker.io/v1/','DCR-personal'){
+        //             def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
+        //             ats_image.push()
+        //         }
+        //         }
+        //     }
+        // }
+        stage('Docker Build'){
+            agent any
+            steps{
+                sh 'docker build -t mak2497/ats-image:${env.BUILD_ID} .'
             }
         }
         
