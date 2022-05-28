@@ -26,9 +26,12 @@ pipeline {
         stage('Docker Build'){
             agent any 
             steps{
+                script{
+
                 docker.withRegistery('https://index.docker.io/v1/','DCR-personal'){
                     def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
                     ats_image.push()
+                }
                 }
             }
         }
