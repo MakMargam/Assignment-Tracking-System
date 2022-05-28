@@ -1,6 +1,6 @@
 // @Library('global-vars') _
 pipeline {
-    checkout scm
+    // checkout scm
     agent none;
 
     stages {
