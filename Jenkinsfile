@@ -1,8 +1,8 @@
 @Library('global-vars') _
-node {
-    // agent none;
+pipeline {
+    agent none;
 
-    // stages {
+    stages {
         stage('Maven Build') {
             agent any;
             tools {
@@ -24,13 +24,14 @@ node {
             }
         }
         stage('Docker Build'){
-            // steps{
+            agent any 
+            steps{
                 docker.withRegistery('https://index.docker.io/v1/','DCR-personal'){
                     def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
                     ats_image.push()
                 }
-            // }
+            }
         }
         
-    // }
+    }
 }
