@@ -1,5 +1,5 @@
 @Library('global-vars') _
-pipeline {
+node {
     agent none;
 
     stages {
