@@ -5,13 +5,14 @@ pipeline {
 
     stages {
         stage('Maven Build') {
-            checkout scm
+            
             agent any;
             tools {
                 maven "MAVEN"
             }
 
             steps {
+                checkout scm
                 script{
                     
                 // git 'https://github.com/MakMargam/Assignment-Tracking-System.git'
