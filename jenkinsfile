@@ -26,7 +26,7 @@ pipeline {
             steps{
                 script{
 
-                def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
+                def ats_image = docker.build("mak2497/ats-image:0.0.0")
                 docker.withRegistry('', 'DCR-personal') {  
                     ats_image.push()
                     // sh "docker push my-image:${env.BUILD_ID}"
