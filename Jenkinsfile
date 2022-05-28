@@ -23,8 +23,8 @@ pipeline {
             steps{
                 script{
 
+                def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
                 docker.withRegistery('','DCR-personal'){
-                    def ats_image = docker.build("mak2497/ats-image:${env.BUILD_ID}")
                     ats_image.push()
                 }
                 }
