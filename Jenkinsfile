@@ -22,22 +22,22 @@ pipeline {
             }
         }
         stage('SonarQube analysis') { 
-
-            node {
-                // stage('SCM') {
-                //     git 'https://github.com/foo/bar.git'
-                // }
-                // stage('SonarQube analysis') {
-                    withSonarQubeEnv(credentialsId: 'sonar-scan-id', installationName: 'sonar-scan') { // You can override the credential to be used
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
-                    // }
-                }
-            }
-            // steps{
-            //     withSonarQubeEnv(credentialsId: 'sonar-scan-id', installationName: 'sonar-scan') { // You can override the credential to be used
+            agent any
+            // node {
+            //     stage('SCM') {
+            //         git 'https://github.com/foo/bar.git'
+            //     }
+            //     stage('SonarQube analysis') {
+            //         withSonarQubeEnv(credentialsId: 'f225455e-ea59-40fa-8af7-08176e86507a', installationName: 'My SonarQube Server') { // You can override the credential to be used
             //         sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+            //         }
             //     }
             // }
+            steps{
+                withSonarQubeEnv(credentialsId: 'sonar-scan-id', installationName: 'sonar-scan') { // You can override the credential to be used
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                }
+            }
         }
         stage('Docker Build'){
             agent any 
