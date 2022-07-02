@@ -3,8 +3,8 @@ pipeline {
     
     agent none;
 
-    stages('checkout') {
-        stage{
+    stages {
+        stage('checkout'){
             steps{
                 checkout SCM;
             }
