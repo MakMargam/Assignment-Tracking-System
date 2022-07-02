@@ -3,7 +3,12 @@ pipeline {
     
     agent none;
 
-    stages {
+    stages('checkout') {
+        stage{
+            steps{
+                checkout SCM;
+            }
+        }
         stage('Maven Build') {
             
             agent any;
@@ -38,6 +43,15 @@ pipeline {
                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
                 }
             }
+        }
+        stage('Dependency check'){
+            steps {  
+                    withMaven(maven : 'mvn-3.6.3') {  
+                    sh 'mvn dependency-check:check'  
+                }  
+            
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'  
+            } 
         }
         stage('Docker Build'){
             agent any 
