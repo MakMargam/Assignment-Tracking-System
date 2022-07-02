@@ -4,11 +4,11 @@ pipeline {
     agent none;
 
     stages {
-        stage('checkout'){
-            steps{
-                checkout SCM;
-            }
-        }
+        // stage('checkout'){
+        //     steps{
+        //         checkout SCM;
+        //     }
+        // }
         stage('Maven Build') {
             
             agent any;
