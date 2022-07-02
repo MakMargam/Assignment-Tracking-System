@@ -47,7 +47,7 @@ pipeline {
         stage('Dependency check'){
             agent any
             steps {  
-                    withMaven(maven : 'mvn-3.8.5') {  
+                    withMaven(maven : 'MAVEN') {  
                     sh 'mvn dependency-check:check'  
                 }  
             
