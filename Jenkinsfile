@@ -49,6 +49,7 @@ pipeline {
             steps {  
                     withMaven(maven : 'MAVEN') {  
                     sh 'mvn dependency-check:check'  
+                    sh 'pwd'
                 }  
             
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'  
