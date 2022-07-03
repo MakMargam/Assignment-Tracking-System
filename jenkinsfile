@@ -50,6 +50,7 @@ pipeline {
                     withMaven(maven : 'MAVEN') {  
                     sh 'mvn dependency-check:check'  
                     sh 'pwd'
+                    cmd 'pwd'
                 }  
             
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'  
