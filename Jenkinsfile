@@ -60,6 +60,7 @@ pipeline {
                 script{
 
                 def ats_image = docker.build("mak2497/ats-image:0.0.1")
+                curl https://registry-1.docker.io/v2/ && echo Works
                 docker.withRegistry('', 'DCR-token') {  
                     ats_image.push()
                     // sh "docker push my-image:${env.BUILD_ID}"
